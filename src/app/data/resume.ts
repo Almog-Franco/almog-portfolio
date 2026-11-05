@@ -55,7 +55,7 @@ export const PROFILE: Profile = {
   cvFileName: 'Almog-Franco-Resume.pdf',
   openToWork: false,
   tagline:
-    'I build end-to-end UI & API automation frameworks in Python and JavaScript — plus AI agents and workflows that take the busywork out of QA. Auto-triage is just one of them.',
+    'I build end-to-end UI & API automation frameworks in Python and JavaScript — plus AI agents and workflows that take the busywork out of QA.',
   summary:
     'QA Automation Engineer with 4+ years of experience architecting end-to-end UI and API automation frameworks in Python and JavaScript. Specialized in Playwright, PyTest, CI/CD integration, and flaky-test stabilization. Leverages modern AI engineering (agents, LLM CLI tooling) to automate root-cause triage and streamline testing lifecycles.',
   roles: [
