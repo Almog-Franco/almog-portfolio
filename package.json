@@ -11,7 +11,7 @@
     "e2e": "playwright test",
     "e2e:ui": "playwright test --ui",
     "typecheck:e2e": "tsc -p tsconfig.e2e.json",
-    "e2e:prod": "BASE_URL=https://almog-portfolio.vercel.app playwright test"
+    "e2e:prod": "BASE_URL=https://almog-portfolio-tau.vercel.app playwright test"
   },
   "private": true,
   "packageManager": "npm@10.9.8",

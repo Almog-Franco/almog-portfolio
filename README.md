@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/Almog-Franco/almog-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Almog-Franco/almog-portfolio/actions/workflows/ci.yml)
 
-**Live site → [almog-portfolio.vercel.app](https://almog-portfolio.vercel.app)**
+**Live site → [almog-portfolio-tau.vercel.app](https://almog-portfolio-tau.vercel.app)**
 
 My resume as an interactive single-page app, built for a QA Automation Engineer. It opens by running a
 "pytest" suite against me, and you can explore it from a working terminal.
