@@ -1,0 +1,44 @@
+<div class="progress" #progress aria-hidden="true"></div>
+
+<header class="nav" [class.scrolled]="scrolled() || menuOpen()">
+  <div class="container nav-inner">
+    <a href="#about" class="brand" aria-label="Almog Franco — back to top">
+      <span class="br">&lt;</span>AF<span class="br">/&gt;</span>
+    </a>
+
+    <nav class="links" [class.open]="menuOpen()" aria-label="Sections" id="nav-links">
+      @for (section of sections; track section.id) {
+        <a
+          [href]="'#' + section.id"
+          [class.active]="active() === section.id"
+          [attr.aria-current]="active() === section.id ? 'true' : null"
+          (click)="menuOpen.set(false)"
+          >{{ section.label }}</a
+        >
+      }
+    </nav>
+
+    <div class="actions">
+      <button
+        type="button"
+        class="icon-btn"
+        data-testid="theme-toggle"
+        (click)="theme.toggle()"
+        [attr.aria-label]="theme.theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+      >
+        <app-icon [name]="theme.theme() === 'dark' ? 'sun' : 'moon'" />
+      </button>
+      <a class="btn btn-primary btn-sm cta" href="#contact">Let's talk</a>
+      <button
+        type="button"
+        class="icon-btn menu-btn"
+        aria-controls="nav-links"
+        [attr.aria-expanded]="menuOpen()"
+        [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"
+        (click)="menuOpen.update((open) => !open)"
+      >
+        <app-icon [name]="menuOpen() ? 'x' : 'menu'" />
+      </button>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,69 @@
+<div class="term" (click)="focusInput()">
+  <div class="term-bar">
+    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="term-title">recruiter&#64;almog-franco: ~/candidate</span>
+    @if (busy()) {
+      <button type="button" class="skip" (click)="skip(); $event.stopPropagation()">skip ⏭</button>
+    } @else {
+      <span class="kbd-hint" aria-hidden="true">press <kbd>/</kbd></span>
+    }
+  </div>
+
+  <div
+    class="term-body"
+    #body
+    role="log"
+    aria-label="Interactive resume terminal"
+    data-testid="terminal-output"
+    [attr.aria-busy]="busy()"
+  >
+    @for (line of lines(); track line.id) {
+      <div class="line" [class]="line.kind">
+        @switch (line.kind) {
+          @case ('cmd') {
+            <span class="ps1">➜&nbsp;~</span><span class="cmd-text">{{ line.text }}</span>
+          }
+          @case ('title') {
+            <span class="rule"></span><span class="title-text">{{ line.text }}</span><span class="rule"></span>
+          }
+          @case ('test') {
+            <span class="test-name"><span class="tick">✓</span> {{ line.text }}</span>
+            <span class="status">{{ line.status }}</span>
+          }
+          @default {
+            <span>{{ line.text }}</span>
+            @if (line.href) {
+              <a
+                [href]="line.href"
+                [attr.target]="line.href.startsWith('http') ? '_blank' : null"
+                rel="noopener"
+                (click)="$event.stopPropagation()"
+                >{{ line.linkText }}</a>
+            }
+          }
+        }
+      </div>
+    }
+    <label class="line input-line">
+      <span class="ps1">➜&nbsp;~</span>
+      <input
+        #inputEl
+        type="text"
+        data-testid="terminal-input"
+        aria-label="Terminal command"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+        enterkeyhint="send"
+        (keydown)="onKey($event)"
+      />
+    </label>
+  </div>
+</div>
+
+<div class="suggestions" aria-label="Suggested commands">
+  <span class="try">Try:</span>
+  @for (s of suggestions; track s) {
+    <button type="button" class="chip chip-sm" [disabled]="busy()" (click)="runSuggestion(s)">{{ s }}</button>
+  }
+</div>

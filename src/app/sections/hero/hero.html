@@ -1,0 +1,36 @@
+<section id="about" class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      @if (profile.openToWork) {
+        <span class="status-pill"><span class="pulse"></span>Open to new opportunities</span>
+      }
+      <p class="hello">Hi, I'm</p>
+      <h1 class="hero-name">{{ profile.name }}<span class="accent-dot">.</span></h1>
+      <p class="hero-role" aria-live="off">
+        <span class="prompt">&gt;</span>
+        <span class="typed" data-testid="hero-role">{{ typedRole() }}</span><span class="caret" aria-hidden="true"></span>
+      </p>
+      <p class="hero-tagline">{{ profile.tagline }}</p>
+      <p class="hero-location"><app-icon name="map-pin" [size]="16" /> {{ profile.location }}</p>
+
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#contact">Get in touch <app-icon name="arrow-right" [size]="16" /></a>
+        <a class="btn btn-ghost" [href]="profile.cvUrl" [attr.download]="profile.cvFileName">
+          <app-icon name="download" [size]="16" /> Download CV
+        </a>
+        <a class="icon-btn icon-btn-lg" [href]="profile.linkedin" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+          <app-icon name="linkedin" />
+        </a>
+        <a class="icon-btn icon-btn-lg" [href]="'mailto:' + profile.email" aria-label="Send email">
+          <app-icon name="mail" />
+        </a>
+      </div>
+    </div>
+
+    <app-terminal class="hero-terminal" />
+  </div>
+
+  <a href="#skills" class="scroll-cue" aria-label="Scroll to skills">
+    <span class="mouse"><span class="wheel"></span></span>
+  </a>
+</section>

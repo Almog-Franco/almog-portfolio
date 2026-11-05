@@ -1,0 +1,74 @@
+<section id="skills" class="section">
+  <div class="container">
+    <header class="section-head" appReveal>
+      <span class="kicker">01 · skills.json</span>
+      <h2 class="section-title">Tools of the trade</h2>
+      <p class="section-sub">
+        Click any skill to see where I've used it — matching roles light up in the experience timeline.
+      </p>
+    </header>
+
+    <div class="search" appReveal>
+      <app-icon name="search" [size]="16" />
+      <span class="grep">grep -i</span>
+      <input
+        type="search"
+        placeholder="playwright, docker, api…"
+        aria-label="Filter skills"
+        [value]="query()"
+        (input)="onSearch($any($event.target).value)"
+      />
+      <span class="match-count" data-testid="skill-match-count">{{ matchCount() }}/{{ total }}</span>
+    </div>
+
+    <div class="groups">
+      @for (group of groups; track group.id; let i = $index) {
+        <article class="card group" appSpotlight [appReveal]="i * 80">
+          <header class="group-head">
+            <span class="group-icon"><app-icon [name]="group.icon" /></span>
+            <h3>{{ group.label }}</h3>
+            <span class="group-count">{{ group.skills.length }}</span>
+          </header>
+          <div class="chips">
+            @for (skill of group.skills; track skill) {
+              <button
+                type="button"
+                class="chip"
+                [class.dim]="!matches(skill)"
+                [class.selected]="focus.selected() === skill"
+                [attr.aria-pressed]="focus.selected() === skill"
+                (click)="focus.toggle(skill)"
+              >
+                {{ skill }}
+                @if (usedAtCount(skill)) {
+                  <span class="used" aria-hidden="true" [attr.title]="'Used in ' + usedAtCount(skill) + ' role(s)'">{{ usedAtCount(skill) }}</span>
+                }
+              </button>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Floating "assertion" bar while a skill is selected -->
+<div class="insight" [class.show]="focus.selected()" role="status" data-testid="skill-insight">
+  @if (focus.selected(); as skill) {
+    <code class="assert">assert "{{ skill }}" in experience</code>
+    @if (selectedUsage().length) {
+      <span class="verdict pass">PASSED</span>
+      <span class="used-at">
+        @for (job of selectedUsage(); track job.id; let last = $last) {
+          <a [href]="'#exp-' + job.id">{{ job.company }}</a>{{ last ? '' : ', ' }}
+        }
+      </span>
+    } @else {
+      <span class="verdict info">TOOLKIT</span>
+      <span class="used-at">Part of my day-to-day toolkit</span>
+    }
+    <button type="button" class="close" aria-label="Clear skill filter" (click)="focus.clear()">
+      <app-icon name="x" [size]="16" />
+    </button>
+  }
+</div>

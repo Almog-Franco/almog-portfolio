@@ -1,0 +1,80 @@
+<section id="experience" class="section">
+  <div class="container">
+    <header class="section-head" appReveal>
+      <span class="kicker">02 · git log --career</span>
+      <h2 class="section-title">Where I've shipped quality</h2>
+      <p class="section-sub">From manual exploratory testing to AI-driven triage — expand a role for the full story.</p>
+    </header>
+
+    <ol class="timeline">
+      @for (job of jobs; track job.id) {
+        <li
+          class="tl-item"
+          [id]="'exp-' + job.id"
+          [class.match]="isMatch(job)"
+          [class.dim]="isDimmed(job)"
+          [attr.data-testid]="'job-' + job.id"
+          appReveal
+        >
+          <span class="tl-dot" [class.current]="job.current" aria-hidden="true"></span>
+          <article class="card job" appSpotlight>
+            <header class="job-head">
+              <div class="job-title">
+                <h3>{{ job.role }}</h3>
+                <p class="company">
+                  &#64; {{ job.company }}
+                  @if (job.current) {
+                    <span class="now">current</span>
+                  }
+                </p>
+              </div>
+              <span class="period">{{ job.period }}</span>
+            </header>
+
+            <p class="summary">{{ job.summary }}</p>
+
+            @if (job.badge) {
+              <p class="badge"><app-icon name="sparkles" [size]="14" /> {{ job.badge }}</p>
+            }
+
+            <div class="tags">
+              @for (tag of job.tags; track tag) {
+                @if (isSkill(tag)) {
+                  <button
+                    type="button"
+                    class="tag tag-btn"
+                    [class.hit]="focus.selected() === tag"
+                    (click)="focus.toggle(tag)"
+                  >
+                    {{ tag }}
+                  </button>
+                } @else {
+                  <span class="tag">{{ tag }}</span>
+                }
+              }
+            </div>
+
+            <button
+              type="button"
+              class="expand"
+              [attr.aria-expanded]="isExpanded(job)"
+              [attr.aria-controls]="'details-' + job.id"
+              (click)="toggle(job)"
+            >
+              {{ isExpanded(job) ? 'Hide details' : 'Show details' }}
+              <app-icon name="chevron-down" [size]="16" />
+            </button>
+
+            <div class="details" [class.open]="isExpanded(job)" [id]="'details-' + job.id">
+              <ul>
+                @for (point of job.highlights; track $index) {
+                  <li>{{ point }}</li>
+                }
+              </ul>
+            </div>
+          </article>
+        </li>
+      }
+    </ol>
+  </div>
+</section>

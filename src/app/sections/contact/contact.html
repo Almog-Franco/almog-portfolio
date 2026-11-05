@@ -1,0 +1,44 @@
+<section id="contact" class="section contact">
+  <div class="container">
+    <div class="contact-card card" appSpotlight appReveal>
+      <span class="kicker">04 · contact.vcf</span>
+      <h2 class="section-title">Let's make your releases boring<span class="accent">.</span></h2>
+      <p class="section-sub">
+        Green pipelines, fewer flaky tests, faster triage. If you're hiring for QA automation, I'd love to hear about
+        your team.
+      </p>
+
+      <div class="email-row">
+        <a class="email" [href]="'mailto:' + profile.email" data-testid="contact-email">{{ profile.email }}</a>
+        <button type="button" class="icon-btn icon-btn-lg" (click)="copyEmail()" [attr.aria-label]="copied() ? 'Email copied' : 'Copy email address'">
+          <app-icon [name]="copied() ? 'check' : 'copy'" />
+        </button>
+      </div>
+
+      <div class="channels">
+        <a class="channel" [href]="profile.linkedin" target="_blank" rel="noopener">
+          <span class="channel-icon"><app-icon name="linkedin" /></span>
+          <span class="channel-text"><strong>LinkedIn</strong><small>Connect with me</small></span>
+          <app-icon class="arrow" name="external-link" [size]="16" />
+        </a>
+        <a class="channel" [href]="profile.phoneHref">
+          <span class="channel-icon"><app-icon name="phone" /></span>
+          <span class="channel-text"><strong>{{ profile.phone }}</strong><small>Call or WhatsApp</small></span>
+          <app-icon class="arrow" name="arrow-right" [size]="16" />
+        </a>
+        <a class="channel" [href]="profile.cvUrl" [attr.download]="profile.cvFileName">
+          <span class="channel-icon"><app-icon name="download" /></span>
+          <span class="channel-text"><strong>Resume</strong><small>Download PDF</small></span>
+          <app-icon class="arrow" name="arrow-down" [size]="16" />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>© {{ year }} {{ profile.name }}</span>
+    <span class="built">Built with Angular · E2E-tested with Playwright · <span class="pass">✓ all checks passed</span></span>
+  </div>
+</footer>
