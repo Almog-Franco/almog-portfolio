@@ -1,4 +1,4 @@
-import { ALL_SKILLS, JOBS, SKILL_GROUPS, STATS, jobsUsingSkill } from './resume';
+import { ALL_SKILLS, CAREER_PIPELINE, JOBS, PIPELINE_META, jobsUsingSkill } from './resume';
 
 describe('resume data', () => {
   it('has no duplicate skills across groups', () => {
@@ -27,9 +27,13 @@ describe('resume data', () => {
     }
   });
 
-  it('derives the stats from the data rather than hard-coding them', () => {
-    const byLabel = Object.fromEntries(STATS.map((s) => [s.label, s.value]));
-    expect(byLabel['Companies']).toBe(JOBS.length);
-    expect(byLabel['Tools & technologies']).toBe(SKILL_GROUPS.flatMap((g) => g.skills).length);
+  it('runs the career pipeline oldest-first, ending with the current role', () => {
+    expect(CAREER_PIPELINE).toHaveLength(JOBS.length);
+    expect(CAREER_PIPELINE[0].company).toBe('Namogoo');
+    expect(CAREER_PIPELINE.at(-1)?.current).toBe(true);
+  });
+
+  it('derives pipeline artifacts from the skills list', () => {
+    expect(PIPELINE_META.artifacts).toBe(`${ALL_SKILLS.length} skills`);
   });
 });

@@ -42,12 +42,6 @@ export interface Job {
   tags: string[];
 }
 
-export interface Stat {
-  value: number;
-  suffix: string;
-  label: string;
-}
-
 export const PROFILE: Profile = {
   name: 'Almog Franco',
   title: 'QA Automation Engineer',
@@ -229,12 +223,15 @@ export const LANGUAGES = [
   { name: 'English', level: 'Fluent' },
 ];
 
-export const STATS: Stat[] = [
-  { value: 4, suffix: '+', label: 'Years in QA & automation' },
-  { value: JOBS.length, suffix: '', label: 'Companies' },
-  { value: 40, suffix: '+', label: 'Critical flows automated at Proofpoint' },
-  { value: ALL_SKILLS.length, suffix: '', label: 'Tools & technologies' },
-];
+/** Career rendered as a CI workflow run — oldest job first, like pipeline stages. */
+export const CAREER_PIPELINE: Job[] = [...JOBS].reverse();
+
+export const PIPELINE_META = {
+  workflow: 'career.yml',
+  startedYear: 2021,
+  totalDuration: '4+ yrs',
+  artifacts: `${ALL_SKILLS.length} skills`,
+};
 
 /** Names of the "tests" the hero terminal runs against the candidate. */
 export const CANDIDATE_TESTS: string[] = [

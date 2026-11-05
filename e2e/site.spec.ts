@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { PROFILE } from '../src/app/data/resume';
+import { CAREER_PIPELINE, PROFILE } from '../src/app/data/resume';
 import { PortfolioPage } from './pages/portfolio.page';
 
 test.describe('Site basics', () => {
@@ -25,6 +25,25 @@ test.describe('Site basics', () => {
     await expect(page).toHaveURL(/#experience$/);
     await expect(page.locator('#experience')).toBeInViewport();
     await expect(portfolio.navLink('Experience')).toHaveAttribute('aria-current', 'true');
+  });
+
+  test('career pipeline runs oldest → newest and links each job to its role', async ({ page }) => {
+    const portfolio = new PortfolioPage(page);
+    await portfolio.goto();
+    const jobs = portfolio.careerPipeline.getByRole('listitem');
+
+    await expect(jobs).toHaveCount(CAREER_PIPELINE.length);
+    for (const [i, job] of CAREER_PIPELINE.entries()) {
+      await expect(jobs.nth(i)).toContainText(job.company);
+      await expect(jobs.nth(i).getByRole('link')).toHaveAccessibleName(
+        new RegExp(job.current ? 'in progress' : 'passed'),
+      );
+    }
+
+    const current = CAREER_PIPELINE.find((j) => j.current)!;
+    await portfolio.careerPipeline.getByRole('link', { name: new RegExp(current.company) }).click();
+    await expect(page).toHaveURL(new RegExp(`#exp-${current.id}$`));
+    await expect(portfolio.job(current.id)).toBeInViewport();
   });
 
   test('theme choice persists across reloads', async ({ page }) => {

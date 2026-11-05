@@ -14,6 +14,8 @@ My resume as an interactive single-page app, built for a QA Automation Engineer.
 - **Run the terminal.** On load it plays `pytest tests/test_candidate.py`, then accepts commands:
   `help`, `skills`, `experience`, `contact`, `cv`, `goto <section>`, `theme`… Tab autocompletes,
   ↑/↓ browse history, and <kbd>/</kbd> focuses it from anywhere. (Try `sudo hire almog`.)
+- **Follow the career pipeline.** Each role is a job in a GitHub Actions–style workflow run, oldest first.
+  The current role shows as in progress. Click a job to jump to that role.
 - **Click a skill to see where it was used.** The roles that used it light up in the experience timeline,
   and a floating `assert "PyTest" in experience → PASSED` bar names the companies. Tags on job cards work
   the other way round.
@@ -64,7 +66,7 @@ npm run e2e:prod             # same suite against the live Vercel site
 
 ## Editing content
 
-Everything shown on the site — profile, skills, jobs, stats, the terminal's "tests" — lives in
+Everything shown on the site — profile, skills, jobs, the career pipeline, the terminal's "tests" — lives in
 [src/app/data/resume.ts](src/app/data/resume.ts). Replace the PDF at `public/Almog-Franco-Resume.pdf` to update
 the download.
 
@@ -73,7 +75,7 @@ the download.
 ```
 src/app/
 ├── data/resume.ts          # single source of truth for content
-├── sections/               # hero, terminal, stats, skills, experience, education, contact, nav
+├── sections/               # hero, terminal, pipeline, skills, experience, education, contact, nav
 └── shared/                 # icon, reveal & spotlight directives, theme/skill-focus/toast services
 e2e/
 ├── pages/portfolio.page.ts # page object

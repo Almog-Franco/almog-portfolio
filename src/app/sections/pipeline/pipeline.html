@@ -1,0 +1,62 @@
+<section class="pipeline" aria-labelledby="pipeline-title">
+  <div class="container">
+    <div class="run" [class.started]="started()" data-testid="career-pipeline">
+      <header class="run-head">
+        <span class="run-icon" aria-hidden="true"><span class="spinner"></span></span>
+        <div class="run-title">
+          <h2 id="pipeline-title">{{ meta.workflow }}</h2>
+          <p>Run #{{ jobs.length }} · branch <code>main</code> · started {{ meta.startedYear }}</p>
+        </div>
+        <dl class="run-meta">
+          <div>
+            <dt>Total duration</dt>
+            <dd>{{ meta.totalDuration }}</dd>
+          </div>
+          <div>
+            <dt>Jobs</dt>
+            <dd>
+              <span class="ok">{{ passed }} passed</span> · <span class="busy">{{ running }} running</span>
+            </dd>
+          </div>
+          <div>
+            <dt>Artifacts</dt>
+            <dd><a href="#skills">{{ meta.artifacts }}</a></dd>
+          </div>
+        </dl>
+      </header>
+
+      <ol class="jobs">
+        @for (job of jobs; track job.id; let i = $index; let last = $last) {
+          <li class="job" [class.running]="job.current" [style.--i]="i">
+            <a
+              class="job-card"
+              [href]="'#exp-' + job.id"
+              [attr.aria-label]="job.role + ' at ' + job.company + ', ' + job.period + (job.current ? ', in progress' : ', passed')"
+            >
+              <span class="status" aria-hidden="true">
+                @if (job.current) {
+                  <span class="spinner"></span>
+                } @else {
+                  <app-icon name="check" [size]="13" />
+                }
+              </span>
+              <span class="job-text">
+                <strong>{{ job.company }}</strong>
+                <span class="role">{{ job.role }}</span>
+                <span class="period">
+                  {{ job.period }}
+                  @if (job.current) {
+                    <span class="live">in progress</span>
+                  }
+                </span>
+              </span>
+            </a>
+            @if (!last) {
+              <span class="connector" aria-hidden="true"><span class="fill"></span></span>
+            }
+          </li>
+        }
+      </ol>
+    </div>
+  </div>
+</section>

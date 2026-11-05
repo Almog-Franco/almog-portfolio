@@ -10,6 +10,7 @@ export class PortfolioPage {
   readonly skillMatchCount: Locator;
   readonly skillInsight: Locator;
   readonly toast: Locator;
+  readonly careerPipeline: Locator;
 
   constructor(readonly page: Page) {
     this.terminalOutput = page.getByTestId('terminal-output');
@@ -20,6 +21,7 @@ export class PortfolioPage {
     this.skillMatchCount = page.getByTestId('skill-match-count');
     this.skillInsight = page.getByTestId('skill-insight');
     this.toast = page.locator('app-toast').getByRole('status');
+    this.careerPipeline = page.getByTestId('career-pipeline');
   }
 
   async goto(): Promise<void> {

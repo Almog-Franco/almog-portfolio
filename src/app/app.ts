@@ -5,13 +5,13 @@ import { Experience } from './sections/experience/experience';
 import { Hero } from './sections/hero/hero';
 import { Nav } from './sections/nav/nav';
 import { Skills } from './sections/skills/skills';
-import { Stats } from './sections/stats/stats';
+import { Pipeline } from './sections/pipeline/pipeline';
 import { Toast } from './shared/toast';
 
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Nav, Hero, Stats, Skills, Experience, Education, Contact, Toast],
+  imports: [Nav, Hero, Pipeline, Skills, Experience, Education, Contact, Toast],
   template: `
     <div class="backdrop" aria-hidden="true">
       <span class="blob blob-a"></span>
@@ -22,7 +22,7 @@ import { Toast } from './shared/toast';
     <app-nav />
     <main>
       <app-hero />
-      <app-stats />
+      <app-pipeline />
       <app-skills />
       <app-experience />
       <app-education />
