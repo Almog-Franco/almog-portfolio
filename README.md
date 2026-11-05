@@ -52,6 +52,13 @@ The E2E suite ([e2e/](e2e/)) treats the portfolio like a production app:
   typed faster than change detection, and collapsed job details being clipped but still "visible".
 - Verified stable with `--repeat-each=3` (69/69).
 
+## Visitor analytics
+
+[Vercel Web Analytics](https://vercel.com/docs/analytics) counts visitors and page views with no cookies.
+[src/app/analytics.ts](src/app/analytics.ts) skips dev builds, localhost and automated browsers, so E2E runs
+against production never inflate the numbers. Open the site once with `?notrack` to exclude your own browser,
+or with `?track` to undo that.
+
 ## Run locally
 
 ```bash

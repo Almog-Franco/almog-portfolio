@@ -18,6 +18,18 @@ test.describe('Site basics', () => {
     expect(errors).toEqual([]);
   });
 
+  test('automated test runs are never counted as visitors', async ({ page }) => {
+    const analyticsRequests: string[] = [];
+    page.on('request', (req) => req.url().includes('/_vercel/insights') && analyticsRequests.push(req.url()));
+
+    const portfolio = new PortfolioPage(page);
+    await portfolio.goto();
+    await portfolio.waitForTerminalReady();
+
+    await expect(page.locator('script[src*="/_vercel/insights"]')).toHaveCount(0);
+    expect(analyticsRequests).toEqual([]);
+  });
+
   test('nav links scroll to their section and mark it current', async ({ page }) => {
     const portfolio = new PortfolioPage(page);
     await portfolio.goto();
