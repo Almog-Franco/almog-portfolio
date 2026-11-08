@@ -16,6 +16,7 @@ import {
   JOBS,
   LANGUAGES,
   PROFILE,
+  PROJECTS,
   SECTIONS,
   SKILL_GROUPS,
 } from '../../data/resume';
@@ -41,6 +42,8 @@ const COMMANDS: [string, string][] = [
   ['about', 'professional summary'],
   ['skills', 'technical skills by category'],
   ['experience', 'work history (alias: jobs)'],
+  ['wins', 'key achievements per role'],
+  ['projects', "things I've built"],
   ['education', 'degree, certs & languages'],
   ['contact', 'how to reach me'],
   ['cv', 'download my resume (PDF)'],
@@ -63,6 +66,8 @@ const FILES: Record<string, string> = {
   'about.md': 'about',
   'skills.json': 'skills',
   'experience.log': 'experience',
+  'wins.md': 'wins',
+  'projects/': 'projects',
   'education.txt': 'education',
   'contact.vcf': 'contact',
 };
@@ -77,7 +82,7 @@ const FILES: Record<string, string> = {
 export class Terminal {
   protected readonly lines = signal<TerminalLine[]>([]);
   protected readonly busy = signal(true);
-  protected readonly suggestions = ['help', 'skills', 'experience', 'contact', 'sudo hire almog'];
+  protected readonly suggestions = ['help', 'wins', 'projects', 'contact', 'sudo hire almog'];
 
   private readonly body = viewChild.required<ElementRef<HTMLElement>>('body');
   private readonly inputEl = viewChild.required<ElementRef<HTMLInputElement>>('inputEl');
@@ -268,6 +273,28 @@ export class Terminal {
           await this.wait(90);
         }
         this.print({ kind: 'muted', text: '→ run "goto experience" for the full timeline.' });
+        return;
+
+      case 'wins':
+      case 'achievements':
+        for (const job of JOBS.filter((j) => j.wins?.length)) {
+          this.print({ kind: 'accent', text: `▸ ${job.company}` });
+          for (const win of job.wins ?? []) this.print({ kind: 'out', text: `  [${win.metric}] ${win.text}` });
+          await this.wait(90);
+        }
+        return;
+
+      case 'projects':
+        for (const project of PROJECTS) {
+          const link = project.links[0];
+          this.print({
+            kind: 'out',
+            text: `● ${project.name} — ${project.tagline} `,
+            ...(link ? { href: link.href, linkText: link.label.toLowerCase() } : {}),
+          });
+          await this.wait(90);
+        }
+        this.print({ kind: 'muted', text: '→ run "goto projects" for the cards.' });
         return;
 
       case 'education':

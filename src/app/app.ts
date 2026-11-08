@@ -6,12 +6,13 @@ import { Hero } from './sections/hero/hero';
 import { Nav } from './sections/nav/nav';
 import { Skills } from './sections/skills/skills';
 import { Pipeline } from './sections/pipeline/pipeline';
+import { Projects } from './sections/projects/projects';
 import { Toast } from './shared/toast';
 
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Nav, Hero, Pipeline, Skills, Experience, Education, Contact, Toast],
+  imports: [Nav, Hero, Pipeline, Skills, Experience, Projects, Education, Contact, Toast],
   template: `
     <div class="backdrop" aria-hidden="true">
       <span class="blob blob-a"></span>
@@ -25,6 +26,7 @@ import { Toast } from './shared/toast';
       <app-pipeline />
       <app-skills />
       <app-experience />
+      <app-projects />
       <app-education />
       <app-contact />
     </main>

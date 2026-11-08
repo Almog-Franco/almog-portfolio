@@ -1,5 +1,7 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
+export type CiMock = 'success' | 'failure' | 'error';
+
 /** Page object for the single-page portfolio. Locators prefer roles; test ids only where no role fits. */
 export class PortfolioPage {
   readonly terminalOutput: Locator;
@@ -24,8 +26,28 @@ export class PortfolioPage {
     this.careerPipeline = page.getByTestId('career-pipeline');
   }
 
-  async goto(): Promise<void> {
+  /**
+   * Opens the site. The GitHub API (live CI badge) is always mocked so tests never depend on
+   * GitHub's rate limits or the real state of the pipeline.
+   */
+  async goto({ ci = 'success' }: { ci?: CiMock } = {}): Promise<void> {
+    await this.page.route('https://api.github.com/**', (route) => {
+      const headers = { 'access-control-allow-origin': '*', 'content-type': 'application/json' };
+      if (ci === 'error') return route.fulfill({ status: 403, headers, body: '{"message":"rate limited"}' });
+      const finishedAt = new Date(Date.now() - 2 * 3600 * 1000).toISOString();
+      return route.fulfill({
+        status: 200,
+        headers,
+        body: JSON.stringify({
+          workflow_runs: [{ conclusion: ci, updated_at: finishedAt, html_url: 'https://github.com/run/123' }],
+        }),
+      });
+    });
     await this.page.goto('/');
+  }
+
+  project(id: string): Locator {
+    return this.page.getByTestId(`project-${id}`);
   }
 
   /** Waits until the boot "pytest" run has finished and the prompt accepts input. */

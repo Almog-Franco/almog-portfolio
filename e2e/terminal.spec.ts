@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { CANDIDATE_TESTS, PROFILE } from '../src/app/data/resume';
+import { CANDIDATE_TESTS, JOBS, PROFILE, PROJECTS } from '../src/app/data/resume';
 import { PortfolioPage } from './pages/portfolio.page';
 
 test.describe('Interactive terminal', () => {
@@ -45,6 +45,15 @@ test.describe('Interactive terminal', () => {
       'href',
       PROFILE.linkedin,
     );
+  });
+
+  test('wins lists every achievement metric, projects lists every project', async () => {
+    await portfolio.runCommand('wins');
+    for (const win of JOBS.flatMap((j) => j.wins ?? [])) {
+      await expect(portfolio.terminalOutput).toContainText(`[${win.metric}]`);
+    }
+    await portfolio.runCommand('projects');
+    for (const project of PROJECTS) await expect(portfolio.terminalOutput).toContainText(project.name);
   });
 
   test('unknown commands show a helpful error', async () => {

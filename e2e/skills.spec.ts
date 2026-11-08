@@ -64,7 +64,7 @@ test.describe('Skills ↔ experience cross-highlighting', () => {
   test('job details expand and collapse', async () => {
     const nutrino = portfolio.job('nutrino');
     const toggle = nutrino.getByRole('button', { name: /details/ });
-    const firstHighlight = nutrino.getByRole('listitem').first();
+    const firstHighlight = nutrino.getByRole('list', { name: 'Role details' }).getByRole('listitem').first();
 
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
     await expect(firstHighlight).toBeHidden();

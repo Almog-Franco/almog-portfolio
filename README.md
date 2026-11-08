@@ -12,7 +12,7 @@ My resume as an interactive single-page app, built for a QA Automation Engineer.
 ## What you can do on the site
 
 - **Run the terminal.** On load it plays `pytest tests/test_candidate.py`, then accepts commands:
-  `help`, `skills`, `experience`, `contact`, `cv`, `goto <section>`, `theme`… Tab autocompletes,
+  `help`, `wins`, `projects`, `skills`, `experience`, `contact`, `cv`, `goto <section>`, `theme`… Tab autocompletes,
   ↑/↓ browse history, and <kbd>/</kbd> focuses it from anywhere. (Try `sudo hire almog`.)
 - **Follow the career pipeline.** Each role is a job in a GitHub Actions–style workflow run, oldest first.
   The current role shows as in progress. Click a job to jump to that role.
@@ -20,7 +20,10 @@ My resume as an interactive single-page app, built for a QA Automation Engineer.
   and a floating `assert "PyTest" in experience → PASSED` bar names the companies. Tags on job cards work
   the other way round.
 - **Filter skills** with a `grep -i` search box.
-- **Expand roles** for the full bullet points.
+- **See key wins per role.** Each one is a metric chip with a single line, for example `3 days → 30 min`. Expand a role
+  for the full bullet points.
+- **Browse projects.** Test frameworks, a mobile game, and this site, which has a live badge showing its latest
+  GitHub Actions result.
 - **Switch light/dark theme.** The choice is saved, with no flash on reload.
 - **Copy the email in one click** or download the PDF resume.
 
@@ -82,7 +85,7 @@ the download.
 ```
 src/app/
 ├── data/resume.ts          # single source of truth for content
-├── sections/               # hero, terminal, pipeline, skills, experience, education, contact, nav
+├── sections/               # hero, terminal, pipeline, skills, experience, projects, education, contact, nav
 └── shared/                 # icon, reveal & spotlight directives, theme/skill-focus/toast services
 e2e/
 ├── pages/portfolio.page.ts # page object

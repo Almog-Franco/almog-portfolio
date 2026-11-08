@@ -1,0 +1,62 @@
+<section id="projects" class="section">
+  <div class="container">
+    <header class="section-head" appReveal>
+      <span class="kicker">03 · ls ~/projects</span>
+      <h2 class="section-title">Things I've built</h2>
+      <p class="section-sub">Test frameworks, a mobile game, and the site you're on, each with tests behind it.</p>
+    </header>
+
+    <div class="grid">
+      @for (project of projects; track project.id; let i = $index) {
+        <article class="card project" appSpotlight [appReveal]="(i % 2) * 90" [attr.data-testid]="'project-' + project.id">
+          <div class="visual" [class.phone]="project.image?.shape === 'phone'">
+            @if (project.image; as image) {
+              <img [src]="image.src" [alt]="image.alt" loading="lazy" decoding="async" />
+            } @else if (project.terminal) {
+              <pre class="mini-term" aria-hidden="true">@for (line of project.terminal; track $index) {<span [class.prompt]="line.startsWith('$')" [class.pass]="line.includes('PASSED') || line.startsWith('✓')">{{ line }}</span>
+}</pre>
+            }
+          </div>
+
+          <div class="body">
+            <header class="head">
+              <h3>{{ project.name }}</h3>
+              @if (project.ci; as ci) {
+                <app-ci-status [repo]="ci.repo" [workflow]="ci.workflow" />
+              }
+            </header>
+            <p class="tagline">{{ project.tagline }}</p>
+            <ul class="highlights">
+              @for (point of project.highlights; track $index) {
+                <li>{{ point }}</li>
+              }
+            </ul>
+            <div class="tech">
+              @for (t of project.tech; track t) {
+                <span class="tag">{{ t }}</span>
+              }
+            </div>
+            <footer class="links">
+              @for (link of project.links; track link.href) {
+                <a class="btn btn-ghost btn-sm" [href]="link.href" target="_blank" rel="noopener">
+                  <app-icon [name]="link.icon" [size]="15" /> {{ link.label }}
+                </a>
+              }
+              @if (project.note) {
+                <span class="note">{{ project.note }}</span>
+              }
+            </footer>
+          </div>
+        </article>
+      }
+    </div>
+
+    <p class="university" appReveal>
+      <span class="uni-label">From university:</span>
+      @for (p of university; track p.href; let last = $last) {
+        <a [href]="p.href" target="_blank" rel="noopener">{{ p.name }}</a>
+        <span class="uni-detail">({{ p.detail }})</span>{{ last ? '' : ' · ' }}
+      }
+    </p>
+  </div>
+</section>

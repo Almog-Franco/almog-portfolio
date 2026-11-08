@@ -12,7 +12,7 @@ import { Spotlight } from '../../shared/spotlight';
     <section id="education" class="section">
       <div class="container">
         <header class="section-head" appReveal>
-          <span class="kicker">03 · education.txt</span>
+          <span class="kicker">04 · education.txt</span>
           <h2 class="section-title">Foundations</h2>
         </header>
 

@@ -33,8 +33,15 @@
 
             <p class="summary">{{ job.summary }}</p>
 
-            @if (job.badge) {
-              <p class="badge"><app-icon name="sparkles" [size]="14" /> {{ job.badge }}</p>
+            @if (job.wins?.length) {
+              <ul class="wins" aria-label="Key wins" [attr.data-testid]="'wins-' + job.id">
+                @for (win of job.wins; track win.metric) {
+                  <li class="win">
+                    <span class="metric">{{ win.metric }}</span>
+                    <span class="win-text">{{ win.text }}</span>
+                  </li>
+                }
+              </ul>
             }
 
             <div class="tags">
@@ -66,7 +73,7 @@
             </button>
 
             <div class="details" [class.open]="isExpanded(job)" [id]="'details-' + job.id">
-              <ul>
+              <ul aria-label="Role details">
                 @for (point of job.highlights; track $index) {
                   <li>{{ point }}</li>
                 }

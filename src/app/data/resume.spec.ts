@@ -1,4 +1,4 @@
-import { ALL_SKILLS, CAREER_PIPELINE, JOBS, PIPELINE_META, jobsUsingSkill } from './resume';
+import { ALL_SKILLS, CAREER_PIPELINE, JOBS, PIPELINE_META, PROJECTS, jobsUsingSkill } from './resume';
 
 describe('resume data', () => {
   it('has no duplicate skills across groups', () => {
@@ -35,5 +35,17 @@ describe('resume data', () => {
 
   it('derives pipeline artifacts from the skills list', () => {
     expect(PIPELINE_META.artifacts).toBe(`${ALL_SKILLS.length} skills`);
+  });
+
+  it('keeps wins short and scannable (at most 3 per role, metric under 24 chars)', () => {
+    for (const job of JOBS) {
+      expect((job.wins ?? []).length, job.id).toBeLessThanOrEqual(3);
+      for (const win of job.wins ?? []) expect(win.metric.length, win.metric).toBeLessThan(24);
+    }
+  });
+
+  it('gives every project a unique id and either a link or a note explaining why not', () => {
+    expect(new Set(PROJECTS.map((p) => p.id)).size).toBe(PROJECTS.length);
+    for (const p of PROJECTS) expect(p.links.length > 0 || !!p.note, p.id).toBe(true);
   });
 });
