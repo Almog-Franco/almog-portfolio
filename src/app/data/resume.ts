@@ -210,7 +210,7 @@ export const JOBS: Job[] = [
   },
   {
     id: 'proofpoint',
-    role: 'Student QA Automation Engineer',
+    role: 'QA Automation Engineer',
     company: 'Proofpoint',
     period: '2022 – 2024',
     current: false,
@@ -224,10 +224,6 @@ export const JOBS: Job[] = [
       {
         metric: 'Award nominee',
         text: 'Nominated for a company award following a recommendation from a major enterprise customer.',
-      },
-      {
-        metric: 'Full-time impact',
-        text: 'Delivered full-time-level ownership and availability while in a student position.',
       },
     ],
     highlights: [
