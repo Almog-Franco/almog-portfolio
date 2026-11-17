@@ -326,7 +326,7 @@ export const PROJECTS: Project[] = [
     id: 'ammeter',
     name: 'Ammeter Test Framework',
     tagline:
-      'A Python framework, also ported to Java with TestNG, that samples three ammeter emulators, decides PASS/FAIL from physics-derived checks, and archives every run.',
+      'A test framework in two versions, Python with PyTest and Java with TestNG, that samples three ammeter emulators, decides PASS/FAIL from physics-derived checks, and archives every run.',
     highlights: [
       'Scheduled sampling with hard deadlines across Greenlee, ENTES and CIRCUTOR emulators over TCP',
       'Acceptance limits calibrated from 4M simulated readings, then verified against 20,000 real emulator readings',
@@ -339,12 +339,8 @@ export const PROJECTS: Project[] = [
       shape: 'wide',
     },
     links: [
-      { label: 'Python source', href: `${GITHUB}/ammeter-test-framework`, icon: 'github' },
-      {
-        label: 'Java + TestNG port',
-        href: `${GITHUB}/ammeter-test-framework-java`,
-        icon: 'github',
-      },
+      { label: 'Python version', href: `${GITHUB}/ammeter-test-framework`, icon: 'github' },
+      { label: 'Java version', href: `${GITHUB}/ammeter-test-framework-java`, icon: 'github' },
     ],
   },
   {
