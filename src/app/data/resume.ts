@@ -326,19 +326,26 @@ export const PROJECTS: Project[] = [
     id: 'ammeter',
     name: 'Ammeter Test Framework',
     tagline:
-      'A Python framework that samples three ammeter emulators, decides PASS/FAIL from physics-derived checks, and archives every run.',
+      'A Python framework, also ported to Java with TestNG, that samples three ammeter emulators, decides PASS/FAIL from physics-derived checks, and archives every run.',
     highlights: [
       'Scheduled sampling with hard deadlines across Greenlee, ENTES and CIRCUTOR emulators over TCP',
       'Acceptance limits calibrated from 4M simulated readings, then verified against 20,000 real emulator readings',
       'Fault injection proves the error handling; each run gets a report, charts and a JSON archive entry',
     ],
-    tech: ['Python', 'PyTest', 'pytest-xdist', 'matplotlib', 'TCP sockets'],
+    tech: ['Python', 'PyTest', 'pytest-xdist', 'matplotlib', 'Java', 'TestNG', 'TCP sockets'],
     image: {
       src: '/projects/ammeter-timeseries.png',
       alt: 'Chart from a real run: ENTES ammeter readings over time with mean and ±1σ band, verdict PASS',
       shape: 'wide',
     },
-    links: [{ label: 'Source', href: `${GITHUB}/ammeter-test-framework`, icon: 'github' }],
+    links: [
+      { label: 'Python source', href: `${GITHUB}/ammeter-test-framework`, icon: 'github' },
+      {
+        label: 'Java + TestNG port',
+        href: `${GITHUB}/ammeter-test-framework-java`,
+        icon: 'github',
+      },
+    ],
   },
   {
     id: 'email-to-trello',
